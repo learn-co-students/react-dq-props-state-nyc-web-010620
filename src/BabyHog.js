@@ -10,8 +10,8 @@ import GlowingBaby from './assets/glowing-eyes.png'
 
 export default class BabyHog extends Component {
 
-  constructor(props) {
-    super(props)
+  state = {
+    weight: 1
   }
 
   changeWeight = (e) => {
@@ -22,26 +22,44 @@ export default class BabyHog extends Component {
     })
   }
 
+
+
+  handleBabyChange = () => {
+    if(this.props.eyeColor === "blue"){
+      return BlueBaby
+    } else if(this.props.eyeColor === "sun") {
+      return SunBaby
+    } else if(this.props.eyeColor === "glowing"){
+      return GlowingBaby
+    } else {
+      return normalBaby
+    }
+  }
+
+
   render() {
+    const {weight, hobby, eyeColor, name} = this.props
+    console.log(this.props)
     return (
       <li className="hogbabies">
-        <h1>Name</h1>
-        <h3>Weight:</h3>
-        <h3>Hobby:</h3>
-        <h4>Eye Color:</h4>
+        <h1>{name}</h1>
+        <h3>Weight: {this.state.weight}</h3>
+        <h3>Hobby: {hobby}</h3>
+        <h4>Eye Color: {eyeColor}</h4>
           
-        <Button name="+">
+        <Button name="+" onClick={this.changeWeight}>
           Increase Weight
         </Button>
-        <Button name="-">
+        <Button name="-" onClick={this.changeWeight}>
           Decrease Weight
         </Button>
 
         <div className="hb-wrap">
-          <img src={normalBaby} style={{height: '200px'}} alt="MasterBlasterJrJr" />
+          <img src={this.handleBabyChange()} style={{height: '200px'}} alt="MasterBlasterJrJr" />
         </div>
         
       </li>
     )
   }
 }
+
